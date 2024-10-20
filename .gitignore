@@ -1,0 +1,45 @@
+# Binaries
+/app
+
+# Go-specific files
+*.out
+*.exe
+*.test
+*.log
+
+# Dependency directories
+/vendor/
+Gopkg.lock
+Gopkg.toml
+/go.sum
+/go.mod
+
+# IDE and editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+*.tmp
+.DS_Store
+
+# Build artifacts
+build/
+bin/
+obj/
+
+# Coverage files
+*.cov
+
+# Environment variables
+.env
+
+# Miscellaneous
+*.json
+*.yaml
+*.yml
+
+# Others
+*.log
+*.lock
+*.tmp
+*.pid

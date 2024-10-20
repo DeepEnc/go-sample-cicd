@@ -1,0 +1,31 @@
+# Exclude vendor directory if using Go modules
+/vendor/
+
+# Exclude Go build artifacts
+*.out
+*.exe
+*.test
+
+# Exclude log files
+*.log
+
+# Exclude IDE and editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+
+# Exclude the binary
+/app
+
+# Exclude temporary files
+*.tmp
+*.bak
+*~
+
+# Exclude environment variable files
+.env
+
+# Exclude coverage files
+*.cov
