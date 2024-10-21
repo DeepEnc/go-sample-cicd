@@ -65,9 +65,9 @@ jobs:
           --namespace go-namespace \
           --create-namespace
       
-      - name: Get Service Information
-        run: |
-          sleep 30
-          kubectl get services go-release --namespace go-namespace -o jsonpath='{.status.loadBalancer.ingress[0].ip}' > external_ip.txt
-          echo "External IP: $(cat external_ip.txt)"
-          echo "Access your application at: http://$(cat external_ip.txt)"
+      # - name: Get Service Information
+      #   run: |
+      #     sleep 30
+      #     kubectl get services go-release --namespace go-namespace -o jsonpath='{.status.loadBalancer.ingress[0].ip}' > external_ip.txt
+      #     echo "External IP: $(cat external_ip.txt)"
+      #     echo "Access your application at: http://$(cat external_ip.txt)"
