@@ -37,6 +37,14 @@ jobs:
         run: 
           docker push ${{ secrets.DOCKER_USERNAME }}/go-docker-image:latest
 
+      - name: Set up Helm
+        run: |
+          curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3.sh | bash
+
+      - name: Configure kubectl
+        run: |
+          echo "${{ secrets.KUBE_CONFIG }}" > kubeconfig
+          export KUBECONFIG=$(pwd)/kubeconfi    
 
       - name: Set up Kubernetes Credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -50,10 +58,16 @@ jobs:
           aws eks update-kubeconfig --name go-eks-8nSuuRIT --region us-east-1
 
       - name: Deploy to Kubernetes with Helm
-        if: github.ref == 'refs/heads/prod'
         run: |
-          helm upgrade --install go-release-chart ./helm-chart --set image.tag=latest
-
-      - name: Notify Development
-        if: github.ref == 'refs/heads/0.1-develop'
-        run: echo "Deploying to development environment..."
+          helm upgrade --install go-release ./helm-chart \
+          --set image.repository=${{ secrets.DOCKER_USERNAME }}/go-docker-image \
+          --set image.tag=latest \
+          --namespace go-namespace \
+          --create-namespace
+      
+      - name: Get Service Information
+        run: |
+          sleep 30
+          kubectl get services go-release --namespace go-namespace -o jsonpath='{.status.loadBalancer.ingress[0].ip}' > external_ip.txt
+          echo "External IP: $(cat external_ip.txt)"
+          echo "Access your application at: http://$(cat external_ip.txt)"
