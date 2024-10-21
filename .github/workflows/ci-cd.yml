@@ -18,6 +18,7 @@ jobs:
         with:
           go-version: '1.23'
       
+          
       - name: Build
         run: |
           cd simple-go-web-server
@@ -26,9 +27,16 @@ jobs:
       - name: Build Docker image
         run: |
           cd simple-go-web-server
-          docker build -t go-docker-image:latest .
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/go-docker-image:latest .
+
+      - name: Login to Docker Hub
+        run: 
           echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
-          docker push go-docker-image:latest
+        
+      - name: Push Docker image
+        run: 
+          docker push ${{ secrets.DOCKER_USERNAME }}/go-docker-image:latest
+
 
       - name: Set up Kubernetes Credentials
         uses: aws-actions/configure-aws-credentials@v1
