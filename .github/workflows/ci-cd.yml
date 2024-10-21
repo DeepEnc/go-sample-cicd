@@ -18,7 +18,7 @@ jobs:
         with:
           go-version: '1.23'
       
-          
+
       - name: Build
         run: |
           cd simple-go-web-server
@@ -47,7 +47,7 @@ jobs:
 
       - name: Update kubeconfig
         run: |
-          aws eks update-kubeconfig --name go-cluster --region us-east-1
+          aws eks update-kubeconfig --name go-eks-8nSuuRIT --region us-east-1
 
       - name: Deploy to Kubernetes with Helm
         if: github.ref == 'refs/heads/prod'
