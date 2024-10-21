@@ -39,7 +39,7 @@ jobs:
 
       - name: Set up Helm
         run: |
-          curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3.sh | bash
+          curl -fsSL https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3.sh | bash
 
       - name: Configure kubectl
         run: |
