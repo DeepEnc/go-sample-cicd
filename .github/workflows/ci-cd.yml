@@ -1,0 +1,32 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - 0.1-develop
+      - prod
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      
+      - name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: '1.20'
+      
+      - name: Build
+        run: go build -o app .
+      
+      - name: Build Docker image
+        run: |
+          docker build -t go-image-dev:latest .
+          echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+          docker push your-docker-image:latest
+
+      - name: Deploy to Kubernetes
+        run: |
+          helm upgrade --install go-app ./helm-chart --set image.tag=latest

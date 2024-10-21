@@ -1,5 +1,5 @@
 # Binaries
-/app
+/sample-go-web-server
 
 # Go-specific files
 *.out
@@ -35,8 +35,6 @@ obj/
 
 # Miscellaneous
 *.json
-*.yaml
-*.yml
 
 # Others
 *.log
