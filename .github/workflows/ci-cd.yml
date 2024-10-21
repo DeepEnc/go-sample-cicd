@@ -19,7 +19,7 @@ jobs:
           go-version: '1.20'
       
       - name: Build
-        run: go build -o app .
+        run: go build -o go-app ./simple-go-web-server
 
       - name: Build Docker image
         run: |
