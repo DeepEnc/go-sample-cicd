@@ -1,7 +1,7 @@
-# variable "bucket_name" {
-#     type = string
-#     default = "terraform-state-file-dev-1.0"
-# }
+variable "bucket_name" {
+    type = string
+    default = "terraform-state-file-dev-1.0"
+}
 
 variable "kubernetes_version" {
   default     = 1.27
