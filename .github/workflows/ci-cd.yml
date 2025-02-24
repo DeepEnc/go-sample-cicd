@@ -32,7 +32,15 @@ jobs:
       - name: Login to Docker Hub
         run: 
           echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
-        
+      
+      - name: Install Trivy
+        run:
+          curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh    
+
+      - name: Scan the image with Trivy
+        run:
+          trivy image --exit-code 1 --severity CRITICAL,HIGH go-docker-image:latest
+
       - name: Push Docker image
         run: 
           docker push ${{ secrets.DOCKER_USERNAME }}/go-docker-image:latest
