@@ -36,7 +36,7 @@ jobs:
         run:
           curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh    
 
-      - name: Scan the image with Trivy
+      - name: Scan the Image with Trivy
         run:
           trivy image --exit-code 1 --severity CRITICAL,HIGH go-docker-image:latest
 
